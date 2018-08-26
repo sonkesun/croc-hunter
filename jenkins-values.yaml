@@ -1,11 +1,9 @@
 # Includes complete Jenkins configuration in order to run croc-hunter pipeline
 # To install on your own cluster, run:
 # helm --namespace jenkins --name jenkins -f ./jenkins-values.yaml install stable/jenkins
-
 Master:
   ImageTag: "2.74"
-  Memory: "512Mi"
-  HostName: jenkins.acs.az.estrado.io
+  HostName: myjenk.tk
   ServiceType: ClusterIP
   InstallPlugins:
       - kubernetes:0.12
@@ -31,9 +29,9 @@ Master:
       kubernetes.io/tls-acme: "true"
 
     TLS:
-      - secretName: jenkins.acs.az.estrado.io
+      - secretName: myjenk.tk
         hosts:
-          - jenkins.acs.az.estrado.io
+          - myjenk.tk
 
 Agent:
   Enabled: false
