@@ -12,7 +12,7 @@
     "master_acct": "abderian",
     "alt_acct": "abderian",
     "jenkins_creds_id": "docker_creds",
-    "repo": "croc-hunter",
+    "repo": "mydockerrep",
     "dockeremail": ".",
     "dockerfile": "./",
     "image_scanning": false
