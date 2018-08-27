@@ -8,20 +8,20 @@
     "hostname": "croc-hunter.acs.az.estrado.io"
   },
   "container_repo": {
-    "host": "quay.io",
-    "master_acct": "lachie83",
-    "alt_acct": "lachie83",
-    "jenkins_creds_id": "quay_creds",
-    "repo": "croc-hunter",
+    "host": "docker.io",
+    "master_acct": "abderian",
+    "alt_acct": "abderian",
+    "jenkins_creds_id": "docker_creds",
+    "repo": "mydockerrep",
     "dockeremail": ".",
     "dockerfile": "./",
     "image_scanning": false
   },
   "pipeline": {
-      "enabled": true,
-      "debug": false,
-      "library": {
-        "branch": "dev"
-      }
+    "enabled": true,
+    "debug": false,
+    "library": {
+      "branch": "dev"
+    }
   }
 }
