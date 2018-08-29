@@ -7,7 +7,7 @@
 
 def pipeline = new io.estrado.Pipeline()
 
-podTemplate(label: 'jenkins-pipeline', serviceAccount: 'helm', containers: [
+podTemplate(label: 'jenkins-pipeline', containers: [
     containerTemplate(name: 'docker', image: 'docker:1.12.6', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'golang', image: 'golang:1.8.3', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.7.2', command: 'cat', ttyEnabled: true),
