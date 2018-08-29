@@ -5,13 +5,13 @@
     "cpu": "10m",
     "memory": "128Mi",
     "test": true,
-    "hostname": "croc-hunter.acs.az.estrado.io"
+    "hostname": "croc-hunter.anniplusmyles.com"
   },
   "container_repo": {
     "host": "docker.io",
     "master_acct": "abderian",
     "alt_acct": "abderian",
-    "jenkins_creds_id": "docker_creds",
+    "jenkins_creds_id": "docker_cred",
     "repo": "mydockerrep",
     "dockeremail": ".",
     "dockerfile": "./",

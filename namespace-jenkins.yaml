@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: 2018-08-28T13:51:37Z
+  name: jenkins
+  resourceVersion: "19866"
+  selfLink: /api/v1/namespaces/jenkins
+  uid: 7b99181a-aac9-11e8-8dee-42010aa80002
+spec:
+  finalizers:
+  - kubernetes
+status:
+  phase: Active
