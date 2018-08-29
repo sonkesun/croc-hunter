@@ -160,7 +160,7 @@ volumes:[
     }
 
     // deploy only the master branch
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'dev') {
       stage ('deploy to k8s') {
         container('helm') {
           // Deploy using Helm chart
