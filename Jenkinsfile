@@ -3,12 +3,11 @@
 // load pipeline functions
 // Requires pipeline-github-lib plugin to load library from github
 
-@Library('github.com/lachie83/jenkins-pipeline@dev')
+@Library('github.com/sonkesun/jenkins-pipeline@dev')
 
 def pipeline = new io.estrado.Pipeline()
 
 podTemplate(label: 'jenkins-pipeline', containers: [
-    containerTemplate(name: 'jnlp', image: 'jenkinsci/jnlp-slave:3.16-1-alpine', args: '${computer.jnlpmac} ${computer.name}', workingDir: '/home/jenkins', resourceRequestCpu: '200m', resourceLimitCpu: '300m', resourceRequestMemory: '256Mi', resourceLimitMemory: '512Mi'),
     containerTemplate(name: 'docker', image: 'docker:1.12.6', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'golang', image: 'golang:1.8.3', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.7.2', command: 'cat', ttyEnabled: true),
@@ -119,9 +118,9 @@ volumes:[
         println "Add container image tags to anchore scanning list"
         
         def tag = image_tags_list.get(0)
-        def imageLine = "${config.container_repo.host}/${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
+        def imageLine = "${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
         writeFile file: 'anchore_images', text: imageLine
-        anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
+        //anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
 
       }
 
@@ -161,7 +160,7 @@ volumes:[
     }
 
     // deploy only the master branch
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'dev') {
       stage ('deploy to k8s') {
         container('helm') {
           // Deploy using Helm chart
