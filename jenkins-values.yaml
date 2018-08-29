@@ -15,6 +15,7 @@ Master:
       - ghprb:1.40.0
       - blueocean:1.4.1
 
+
   ScriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
     - "new groovy.json.JsonSlurperClassic"
