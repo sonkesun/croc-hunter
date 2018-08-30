@@ -134,7 +134,7 @@ volumes:[
         withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
           sh "kubectl create namespace " + env.BRANCH_NAME.toLowerCase()
-          sh "kubectl config set-context $(kubectl config current-context) --namespace="+ env.BRANCH_NAME.toLowerCase()                 
+          sh "kubectl config set-context gke_wedding-page-307fc_us-west2-b_mygkecluster2 --namespace="+ env.BRANCH_NAME.toLowerCase()                 
           sh "kubectl --namespace " + env.BRANCH_NAME.toLowerCase() + " create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=${env.USERNAME} --docker-password=${env.PASSWORD} --docker-email=wissels@hotmail.com"  
         }}
 
