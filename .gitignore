@@ -3,3 +3,5 @@ vendor/
 *.tgz
 levo-charts
 croc-hunter
+.jenkins
+create-helm-service-account.yaml

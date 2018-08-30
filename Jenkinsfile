@@ -129,6 +129,14 @@ volumes:[
     if (env.BRANCH_NAME =~ "PR-*" ) {
       stage ('deploy to k8s') {
         container('helm') {
+
+          sh "kubectl create namespace " + env.BRANCH_NAME.toLowerCase()
+          // perform docker login to container registry as the docker-pipeline-plugin doesn't work with the next auth json format
+        withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
+                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+          sh "kubectl create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=${env.USERNAME} --docker-password=${env.PASSWORD} --docker-email=wissels@hotmail.com --namespace " + env.BRANCH_NAME.toLowerCase() 
+        }
+
           // Deploy using Helm chart
           pipeline.helmDeploy(
             dry_run       : false,
@@ -146,6 +154,7 @@ volumes:[
 
           //  Run helm tests
           if (config.app.test) {
+
             pipeline.helmTest(
               name        : env.BRANCH_NAME.toLowerCase()
             )
@@ -160,7 +169,7 @@ volumes:[
     }
 
     // deploy only the master branch
-    if (env.BRANCH_NAME == 'dev') {
+    if (env.BRANCH_NAME == 'master') {
       stage ('deploy to k8s') {
         container('helm') {
           // Deploy using Helm chart
