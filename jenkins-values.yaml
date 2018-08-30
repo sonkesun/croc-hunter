@@ -3,17 +3,18 @@
 # helm --namespace jenkins --name jenkins -f ./jenkins-values.yaml install stable/jenkins
 
 Master:
-  ImageTag: "2.89.3"
+
+  ImageTag: "latest"
   HostName: jenkins.anniplusmyles.com
   ServiceType: ClusterIP
   InstallPlugins:
-      - kubernetes:1.1.3
-      - workflow-aggregator:2.5
-      - credentials-binding:1.14
-      - git:3.8.0
       - pipeline-github-lib:1.0
+      - kubernetes:1.2
+      - workflow-aggregator:2.5
+      - git:3.8.
+      - credentials-binding:1.15
       - ghprb:1.40.0
-      - blueocean:latest
+      - blueocean:1.4.1
 
   ScriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
@@ -36,3 +37,6 @@ Master:
 
 Agent:
   Enabled: false
+
+rbac:
+  install: true
