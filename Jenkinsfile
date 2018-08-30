@@ -129,16 +129,6 @@ volumes:[
     if (env.BRANCH_NAME =~ "PR-*" ) {
       stage ('deploy to k8s') {
 
-        container('kubectl') {
-           //perform docker login to container registry as the docker-pipeline-plugin doesn't work with the next auth json format
-        withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
-                        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-          sh "kubectl create namespace " + env.BRANCH_NAME.toLowerCase()
-          sh "kubectl config set-context gke_wedding-page-307fc_us-west2-b_mygkecluster2 --namespace="+ env.BRANCH_NAME.toLowerCase()                 
-          sh "kubectl --namespace " + env.BRANCH_NAME.toLowerCase() + " create secret docker-registry regcred --docker-server=https://index.docker.io/v1/ --docker-username=${env.USERNAME} --docker-password=${env.PASSWORD} --docker-email=wissels@hotmail.com"  
-        }}
-
-
         container('helm') {  
 
           // Deploy using Helm chart
