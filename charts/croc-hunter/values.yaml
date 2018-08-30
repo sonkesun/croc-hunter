@@ -26,4 +26,4 @@ ingress:
 ## PodDisruptionBudget
 pdb:
   enabled: false
-minAvailable: 2
+  minAvailable: 2
