@@ -44,7 +44,7 @@ const (
 				<script src='/static/game.js'></script>
 				<div class="details">
 				<strong>Hostnamen: </strong>%s<br>
-				<strong>Release: </strong>%s<br>
+				<strong>Releasen: </strong>%s<br>
 				<strong>Commit: </strong>%s<br>
 				<strong>Powered By: </strong>%s<br>
 				</div>
