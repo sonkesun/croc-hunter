@@ -129,7 +129,6 @@ volumes:[
     if (env.BRANCH_NAME =~ "PR-*" ) {
       stage ('deploy to k8s') {
 
-
          container('kubectl') {
           sh "kubectl create namespace " + env.BRANCH_NAME.toLowerCase()
           sh "kubectl config set-context gke_wedding-page-307fc_us-west2-b_mygkecluster2 --namespace="+ env.BRANCH_NAME.toLowerCase()                 
