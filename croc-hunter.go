@@ -43,7 +43,7 @@ const (
 				<canvas id="canvasHud" width="800" height="500" ></canvas>
 				<script src='/static/game.js'></script>
 				<div class="details">
-				<strong>Hostname: </strong>%s<br>
+				<strong>Hostnamen: </strong>%s<br>
 				<strong>Release: </strong>%s<br>
 				<strong>Commit: </strong>%s<br>
 				<strong>Powered By: </strong>%s<br>
