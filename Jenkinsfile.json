@@ -8,7 +8,7 @@
     "hostname": "croc-hunter.anniplusmyles.com"
   },
   "container_repo": {
-    "host": "hub.docker.com",
+    "host": "index.docker.io",
     "master_acct": "abderian",
     "alt_acct": "abderian",
     "jenkins_creds_id": "regcred",
