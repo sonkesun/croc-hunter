@@ -11,7 +11,7 @@
     "host": "hub.docker.com",
     "master_acct": "abderian",
     "alt_acct": "abderian",
-    "jenkins_creds_id": "docker_cred",
+    "jenkins_creds_id": "regcred",
     "repo": "mydockerrep",
     "dockeremail": ".",
     "dockerfile": "./",
