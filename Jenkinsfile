@@ -124,7 +124,7 @@ volumes:[
             withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${config.container_repo.host}"
-        anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
+        anchore name: 'anchore_images', bailOnFail: false, bailOnPluginFail: false, inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
             }
             }
       }
