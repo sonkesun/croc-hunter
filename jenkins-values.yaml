@@ -1,7 +1,9 @@
 # Includes complete Jenkins configuration in order to run croc-hunter pipeline
 # To install on your own cluster, run:
 # helm --namespace jenkins --name jenkins -f ./jenkins-values.yaml install stable/jenkins
+
 Master:
+
   ImageTag: "latest"
   HostName: jenkins.anniplusmyles.com
   ServiceType: ClusterIP
@@ -9,12 +11,10 @@ Master:
       - pipeline-github-lib:1.0
       - kubernetes:1.2
       - workflow-aggregator:2.5
-      - workflow-job:2.17
+      - git:3.8.
       - credentials-binding:1.15
-      - git:3.7.0
       - ghprb:1.40.0
       - blueocean:1.4.1
-
 
   ScriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
@@ -39,4 +39,4 @@ Agent:
   Enabled: false
 
 rbac:
-  install: true
+  install: false

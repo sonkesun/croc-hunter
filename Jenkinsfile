@@ -10,7 +10,7 @@ def pipeline = new io.estrado.Pipeline()
 podTemplate(label: 'jenkins-pipeline', containers: [
     containerTemplate(name: 'docker', image: 'docker:1.12.6', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'golang', image: 'golang:1.8.3', command: 'cat', ttyEnabled: true),
-    containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.7.2', command: 'cat', ttyEnabled: true),
+    containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.9.1', command: 'cat', ttyEnabled: true),
     containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.4.8', command: 'cat', ttyEnabled: true)
 ],
 volumes:[
@@ -118,17 +118,19 @@ volumes:[
         println "Add container image tags to anchore scanning list"
         
         def tag = image_tags_list.get(0)
-        def imageLine = "${config.container_repo.host}/${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
+        def imageLine = "${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
         writeFile file: 'anchore_images', text: imageLine
-        anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
-
+        timeout(time: 5, unit: 'SECONDS'){}
+        anchore name: 'anchore_images', bailOnFail: false, inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
       }
 
     }
 
     if (env.BRANCH_NAME =~ "PR-*" ) {
       stage ('deploy to k8s') {
-        container('helm') {
+
+        container('helm') {  
+
           // Deploy using Helm chart
           pipeline.helmDeploy(
             dry_run       : false,
@@ -146,6 +148,7 @@ volumes:[
 
           //  Run helm tests
           if (config.app.test) {
+
             pipeline.helmTest(
               name        : env.BRANCH_NAME.toLowerCase()
             )
