@@ -120,8 +120,7 @@ volumes:[
         def tag = image_tags_list.get(0)
         def imageLine = "${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
         writeFile file: 'anchore_images', text: imageLine
-        sleep 5s
-        anchore name: 'anchore_images', bailOnFail: false, inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
+        timeout 5s anchore name: 'anchore_images', bailOnFail: false, inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
       }
 
     }
